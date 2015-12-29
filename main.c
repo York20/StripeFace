@@ -15,10 +15,10 @@ void tick_handler(struct tm *t, TimeUnits units_changed){
   
   //Checks to see if the what style the user has set their pebble watch to and writes accordingly.
   if (clock_is_24h_style()){
-    strftime(time_format, sizeof(time_format), "%I:%M:%S", t);
+    strftime(time_format, sizeof(time_format), "%H:%M:%S", t);
   }
   else{
-    strftime(time_format, sizeof(time_format), "%H:%M:%S", t);
+    strftime(time_format, sizeof(time_format), "%I:%M:%S", t);
   }
   
   //Writes text to layer.

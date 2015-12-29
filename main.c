@@ -7,11 +7,12 @@ static char time_format[] = "00:00:00";
 static char date_format[11];
 static char battery_format[] = "100%";
 
-//Handles event changes related to time and allows the time pointers to be used for exact time data straight from the unix hardware clock.
-void tick_handler(struct tm *t, TimeUnits units_changed){
+void update_time(){
+  time_t temp = time(NULL);
+  
+  struct tm *t = localtime(&temp);
   
   strftime(date_format, sizeof(date_format), "%a %d", t);
-  text_layer_set_text(date_layer, date_format);
   
   //Checks to see if the what style the user has set their pebble watch to and writes accordingly.
   if (clock_is_24h_style()){
@@ -21,9 +22,15 @@ void tick_handler(struct tm *t, TimeUnits units_changed){
     strftime(time_format, sizeof(time_format), "%I:%M:%S", t);
   }
   
-  //Writes text to layer.
+  //Writes text to layers.
   text_layer_set_text(text_layer, time_format);
   text_layer_set_text(date_layer, date_format);
+  
+}
+
+//Handles event changes related to time and allows the time pointers to be used for exact time data straight from the unix hardware clock.
+void tick_handler(struct tm *t, TimeUnits units_changed){
+  update_time();
   
 }
 
@@ -82,6 +89,7 @@ void init(){
   //Calls update functions.
   BatteryChargeState state = battery_state_service_peek();
   battery_handler(state);
+  update_time();
   
   //Push window to the top of the stack allowing it to be seen.
   window_stack_push(window, true);

@@ -1,4 +1,5 @@
 #include <pebble.h>
+
 Window *window;
 TextLayer *text_layer, *battery_layer, *date_layer, *battery_background;
 
@@ -55,7 +56,7 @@ void init(){
   GRect bounds = layer_get_bounds(window_layer);
   
   //Creates layers.
-  text_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(0,0),PBL_IF_ROUND_ELSE(70,66),bounds.size.w,PBL_IF_ROUND_ELSE(65,61)));
+  text_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(0,0),PBL_IF_ROUND_ELSE(70,66),bounds.size.w,PBL_IF_ROUND_ELSE(70,61)));
   battery_background = text_layer_create(GRect(PBL_IF_ROUND_ELSE(0,0),PBL_IF_ROUND_ELSE(0,0),bounds.size.w,PBL_IF_ROUND_ELSE(70,67)));
   date_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(0,0),PBL_IF_ROUND_ELSE(117,112),bounds.size.w, PBL_IF_ROUND_ELSE(65,61)));
   battery_layer = text_layer_create(GRect(PBL_IF_ROUND_ELSE(6,4),PBL_IF_ROUND_ELSE(15,10),bounds.size.w, PBL_IF_ROUND_ELSE(31,28)));
@@ -72,15 +73,15 @@ void init(){
   layer_add_child(window_layer, text_layer_get_layer(battery_layer));
   
   //Sets Font.
-  text_layer_set_font(text_layer, PBL_IF_ROUND_ELSE(fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK), fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)));
-  text_layer_set_font(battery_layer, PBL_IF_ROUND_ELSE(fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK), fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)));
-  text_layer_set_font(date_layer, PBL_IF_ROUND_ELSE(fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK), fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD)));
+  text_layer_set_font(text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  text_layer_set_font(battery_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  text_layer_set_font(date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   
   //Sets Background
-  text_layer_set_background_color(text_layer, PBL_IF_BW_ELSE(GColorWhite, GColorYellow));
+  text_layer_set_background_color(text_layer, PBL_IF_BW_ELSE(GColorWhite,  GColorYellow));
   text_layer_set_background_color(battery_background, PBL_IF_BW_ELSE(GColorBlack, GColorRed));
   text_layer_set_background_color(battery_layer, GColorClear);
-  text_layer_set_background_color(date_layer, PBL_IF_BW_ELSE(GColorBlack, GColorBlue));
+  text_layer_set_background_color(date_layer, PBL_IF_BW_ELSE(GColorBlack, GColorVeryLightBlue));
   
   //Sets Text Color For Aplite.
   text_layer_set_text_color(battery_layer, PBL_IF_BW_ELSE(GColorWhite, GColorBlack));
